@@ -8,7 +8,8 @@ if ($accion === "modificar") {
                 fecha='$fecha',
                 hora='$hora',
                 num_personas='$num_personas',
-                notas='$notas'
+                notas='$notas',
+                mesa_id='$mesa_id'
             WHERE id='$idAntiguo'";
     mysqli_query($conexion, $sql);
 }
