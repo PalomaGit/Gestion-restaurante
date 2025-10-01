@@ -58,7 +58,6 @@ $resultado = mysqli_query($conexion, "SELECT * FROM reservas ORDER BY fecha, hor
         </div>
     </form>
 
-    <!-- Listado de reservas -->
     <h2 class="text-2xl font-bold my-4">Listado de reservas</h2>
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-200 shadow-sm rounded">
