@@ -49,10 +49,4 @@ Aquí tienes cómo se ve la app en acción:
 - Configurar conexión en `db.php`  
 - Tailwind CSS (se carga vía CDN en este proyecto)  
 
----
 
-## Cómo empezar
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/tuusuario/gestor-reservas.git
