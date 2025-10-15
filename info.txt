@@ -3,7 +3,7 @@ docker-compose up
 
 Aplicación PHP:
 Crear carpeta dentro de "wwww", por ejemplo "holamundo", y crear "index.php".
-Se accede en http://localhost:8080/holamundo/
+Se accede en http://localhost:8081/holamundo/
 
 PHPMyAdmin:
 http://localhost:8000/

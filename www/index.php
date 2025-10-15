@@ -25,12 +25,14 @@ $mesas = mysqli_query($conexion, "SELECT * FROM mesas ORDER BY nombre");
     <title>Gestión de Reservas</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex justify-center bg-blue-100 text-gray-800">
-<div class="max-w-6xl mx-auto p-4">
-    <h1 class="text-4xl font-bold text-center mb-8">Gestión de Reservas del Restaurante</h1>
+<body class="flex justify-center text-gray-800 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('image.png');">
+<div class="max-w-7xl mx-auto p-8 bg-white bg-opacity-90">
+    <h1 class="text-4xl font-bold text-center mb-12">Gestión de Reservas del Restaurante</h1>
 
-    <h2 class="text-2xl font-bold my-4">Hacer una reserva</h2>
-    <form action="agregar.php" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-8 max-w-md">
+    <div class="space-y-12">
+        <div>
+            <h2 class="text-2xl font-bold my-6">Hacer una reserva</h2>
+            <form action="agregar.php" method="post" class="bg-white shadow-md rounded px-8 pt-8 pb-8 max-w-md">
         <input type="hidden" name="idAntiguo" value="">
 
         <div class="mb-4">
@@ -74,12 +76,14 @@ $mesas = mysqli_query($conexion, "SELECT * FROM mesas ORDER BY nombre");
             <input type="text" name="notas" class="shadow border rounded w-full py-2 px-3">
         </div>
 
-        <div class="flex gap-2">
-            <button type="submit" name="accion" value="alta" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Dar de alta</button>
+                <div class="flex gap-2">
+                    <button type="submit" name="accion" value="alta" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Dar de alta</button>
+                </div>
+            </form>
         </div>
-    </form>
 
-    <h2 class="text-2xl font-bold my-4">Listado de reservas</h2>
+        <div>
+            <h2 class="text-2xl font-bold my-6">Listado de reservas</h2>
 
     <form method="get" class="mb-4 flex gap-2">
         <input type="text" name="busqueda" placeholder="Buscar cliente o teléfono"
@@ -88,7 +92,7 @@ $mesas = mysqli_query($conexion, "SELECT * FROM mesas ORDER BY nombre");
         <button class="bg-blue-500 text-white px-4 py-1 rounded">Buscar</button>
     </form>
 
-    <div class="overflow-x-auto">
+    <div class="w-full">
         <table class="border-separate border-spacing-x-6 border-spacing-y-2 w-full bg-white border border-gray-200 shadow-sm rounded">
             <thead class="bg-gray-100">
                 <tr class="text-left">
@@ -149,9 +153,21 @@ $mesas = mysqli_query($conexion, "SELECT * FROM mesas ORDER BY nombre");
                             <td class="flex gap-2">
                                 <form action="borrar.php" method="post">
                                     <input type="hidden" name="id" value="<?php echo $fila["id"]; ?>">
-                                    <button type="submit" name="accion" value="baja" class="bg-red-500 text-white px-3 rounded" onclick="return confirm('¿Seguro que quieres borrar esta reserva?')">Borrar</button>
+                                    <?php if ($editarId) { ?>
+                                        <button type="submit" name="accion" value="baja" class="bg-gray-400 text-white px-3 rounded cursor-not-allowed" disabled>Borrar</button>
+                                    <?php } else { ?>
+                                        <button type="submit" name="accion" value="baja" class="bg-red-500 text-white px-3 rounded" onclick="return confirm('¿Seguro que quieres borrar esta reserva?')">Borrar</button>
+                                    <?php } ?>
                                 </form>
-                                <a href="?editarId=<?php echo $fila['id']; ?>" class="bg-blue-500 text-white px-3 rounded">Modificar</a>
+                                <?php if ($editarId) { ?>
+                                    <?php if ($editarId == $fila['id']) { ?>
+                                        <a href="?editarId=<?php echo $fila['id']; ?>" class="bg-blue-500 text-white px-3 rounded">Modificar</a>
+                                    <?php } else { ?>
+                                        <span class="bg-gray-400 text-white px-3 rounded cursor-not-allowed opacity-50">Modificar</span>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <a href="?editarId=<?php echo $fila['id']; ?>" class="bg-blue-500 text-white px-3 rounded">Modificar</a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>
@@ -159,7 +175,8 @@ $mesas = mysqli_query($conexion, "SELECT * FROM mesas ORDER BY nombre");
             </tbody>
         </table>
     </div>
-
+        </div>
+    </div>
 </div>
 </body>
 </html>
