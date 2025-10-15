@@ -1,24 +1,19 @@
 services:
-  web:
+  mongodb:
+    image: mongo:7.0
+    volumes:
+      - mongodb-data:/data/db
+  api:
     build: .
-    ports:
-      - "8080:80"
+    working_dir: /app
+    env_file: .env
     volumes:
-      - ./www:/var/www/html
-
-  db:
-    image: mysql:8
-    environment:
-      MYSQL_ROOT_PASSWORD: test
-    volumes:
-      - persistent:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+      - ./api:/app/api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - "8000:80"
-    environment:
-      PMA_HOST: db
+      - "8000:8000"
+    depends_on:
+      - mongodb
 
 volumes:
-  persistent: {}
+  mongodb-data:
